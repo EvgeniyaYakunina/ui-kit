@@ -1,14 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Button } from "./index";
+import { useRef } from "react";
 
 const meta = {
-  argTypes: {
-    variant: {
-      control: { type: "radio" },
-      options: ["primary", "secondary"],
-    },
-  },
   component: Button,
   tags: ["autodocs"],
   title: "Components/Button",
@@ -53,20 +48,22 @@ export const AsLink: Story = {
   args: {
     ...Primary.args,
     fullWidth: true,
-    // children: "Link that looks like a button",
-    variant: "primary",
+    children: "As Link",
+    variant: "secondary",
   },
   render: (args) => {
+    const anchorRef = useRef<HTMLAnchorElement>(null);
     return (
-      <Button {...args} asChild>
-        <a href={"https://google.com"} target={"_blank"}>
-          Go to ...
-        </a>{" "}
-      </Button>
+      <div>
+        <Button {...args} asChild>
+          <a href="https://google.com" target="_blank" ref={anchorRef}>
+            Go to google
+          </a>
+        </Button>
+      </div>
     );
   },
 };
-
 export const ButtonWithIcon: Story = {
   args: {
     children: (
